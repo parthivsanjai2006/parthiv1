@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Pollos Hermanos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'restaurant/css/style.css' %}">
+</head>
+<body>
+    <!---navbar--->
+
+    <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">LOS POLLOS HERMANOS</a>
+    <button class="navbar-toggler" type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarSupportedContent"
+    aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse"
+    id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#home">Home</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="#About">About</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#Our-Dishes">OUR Dishes</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact us</a>
+        </li>
+        </ul>
+        <div class="d-flex align-items-center gap-3 flex-wrap">
+  <a href="{% url 'cart' %}" class="nav-link position-relative" id="cart-link">
+    🛒 <span id="cart-count" class="badge rounded-pill bg-warning text-dark">0</span>
+  </a>
+
+  {% if user.is_authenticated %}
+    <span class="text-white">Hi, {{ user.username }}</span>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn signin px-3">Logout</button>
+    </form>
+  {% else %}
+    <a href="{% url 'login' %}" class="btn signin px-3">Sign in</a>
+  {% endif %}
+</div>
+</div>
+</div>
+</nav>
+
+<!---home-->
+
+<section id="home">
+  <a href="#Our-Dishes" class="btn signin btn-lg px-5 m-4">Order Now</a>
+</section>
+
+
+<!--about-->
+
+
+<section id="About" class="About-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-12 my-2">
+                <img src="{% static 'restaurant/images/about_no_bg.png' %}" class="img-fluid">
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 p-lg-5 p-2">
+                <h1>ABOUT US</h1>
+                <p>Welcome to Los Pollos Hermanos, where quality, tradition, and great taste come together! Founded by Gustavo Fring, Los Pollos Hermanos is a famous fast-food restaurant known for its delicious fried chicken and friendly service. Our restaurant is built on the belief that good food brings families and communities together.We take pride in serving delicious meals prepared with carefully selected ingredients and special recipes. From crispy fried chicken to tasty burgers and satisfying sides, every meal is designed to give our customers a wonderful dining experience.Our restaurant represents quality, cleanliness, teamwork, and hospitality. We believe every customer deserves a warm welcome and excellent service. Whether you are visiting with family, friends, or colleagues, Los Pollos Hermanos is the perfect place to enjoy a delicious meal.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="Our-Dishes">
+  <div class="container my-5">
+    <h1 class="text-center my-5">OUR DISHES</h1>
+    <div class="row">
+      {% for dish in dishes %}
+      <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+        <div class="card">
+          <img src="{% static 'restaurant/images/' %}{{ dish.image }}" class="card-img-top" alt="{{ dish.name }}">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ dish.name }}<br>{{ dish.price }}$</h5>
+            <button type="button" class="btn signin add-to-cart"
+        data-id="{{ dish.id }}"
+        data-name="{{ dish.name }}"
+        data-price="{{ dish.price|stringformat:'.2f' }}"
+        data-image="{{ dish.image }}">
+  Add To Cart
+</button>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-center">No dishes available right now.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container box">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-12">
+        <img src="{% static 'restaurant/images/contact_us.jpg' %}" class="img-fluid">
+      </div>
+      <div class="col-lg-6 col-md-6 col-12">
+        <h1>CONTACT US</h1>
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <form class="mb-3" method="POST" action="{% url 'contact' %}">
+          {% csrf_token %}
+          <input type="text" name="name" class="form-control" placeholder="enter your name" required>
+          <input type="email" name="email" class="form-control" placeholder="enter your E-Mail" required>
+          <textarea name="message" class="form-control mb-2" rows="4" placeholder="enter your message" required></textarea>
+          <button type="submit" class="btn signin">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="cartToast" class="toast align-items-center text-bg-success border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body" id="cartToastBody">Added to cart</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer text-center">
+  <p class="mb-1">LOS POLLOS HERMANOS</p>
+  <p class="mb-0">&copy; {% now "Y" %} Los Pollos Hermanos. All rights reserved.</p>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'restaurant/js/cart.js' %}"></script>
+</body>
+</html>

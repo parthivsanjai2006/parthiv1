@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Los Pollos Hermanos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'restaurant/css/style.css' %}">
+</head>
+<body class="auth-page">
+
+  <nav class="navbar navbar-dark" id="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'index' %}">LOS POLLOS HERMANOS</a>
+    </div>
+  </nav>
+
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-8 col-12">
+        <div class="bg-white rounded p-4">
+          <h1 class="text-center mb-4">SIGN IN</h1>
+
+          {% if form.errors %}
+            <div class="alert alert-danger">Username or Password Is Wrong,Try Again.</div>
+          {% endif %}
+
+          <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+            <input type="text" name="username" class="form-control mb-3" placeholder="username" autocomplete="off" required>
+            <input type="password" name="password" class="form-control mb-3" placeholder="password" autocomplete="new-password" required>
+            <button type="submit" class="btn signin w-100">Sign In</button>
+          </form>
+
+          <p class="text-center mt-3 mb-0">Don't have an Account? <a href="{% url 'signup' %}">Sign up</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

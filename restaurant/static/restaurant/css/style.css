@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+#navbar{
+    position: sticky;
+    top:0;
+    left:0;
+    z-index:100;
+    padding: .5rem 5rem;
+    box-shadow: 5px 5px 20px rgba(0,0,0,.5);
+    background: rgb(177, 28, 28);
+}
+
+.navbar .navbar-brand{
+    font-size: 25px;
+    font-weight: 800;
+    color:rgb(230, 188, 5) !important;   
+}
+
+#navbarSupportedContent a{
+    color:white;
+    border-bottom: 2px solid transparent;
+}
+
+#navbarSupportedContent a:hover{
+    border-bottom: 2px solid rgb(230, 188, 5);
+}
+
+#navbarSupportedContent button{
+    background: rgb(230, 188, 5);
+    width: 5rem;
+    border-radius: 15px;
+}
+
+section{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/***home***/
+
+#home{
+    background:url('../images/Los_Pollos_Hermanos_Diner_pc1.png');
+    background-size: cover;
+    background-position: center;
+    flex-direction: column;
+}
+
+
+#home .input-group{
+    width: 40%;
+    height:45px;
+    opacity: 80%;
+}
+
+.signin{
+    background:#ddd015 !important;
+    color:rgb(177, 28, 28) !important;
+    box-shadow: 2px 4px 5px rgba(0,0,0,.3);
+    
+}
+
+/******about******/
+
+.About-section {
+  background-color: #ddd015;
+}
+
+#About h1{
+    font-weight: 800;
+    font-size: 50px;
+    color:rgb(177, 28, 28);
+
+}
+
+#About p{
+    color:rgb(177, 28, 28);
+
+}
+
+/***Dishes***/
+
+
+#Our-Dishes{
+    background: #ddd015;
+}
+
+#Our-Dishes h1{
+    font-size: 50px;
+    letter-spacing:2px;
+    font-weight:700;
+    color:rgb(177, 28, 28);
+
+}
+
+#Our-Dishes img{
+    width:100%;
+    height:200px;
+    object-fit: cover;
+}
+
+.card{
+    width:100%;
+    max-width:260px;
+    height:auto;
+    border:none !important;
+    box-shadow: 15px 20px 20px rgba(0,0,0,.3),
+                inset 4px 4px 10px white;
+    border-radius: 20px !important;
+    overflow: hidden;
+    margin:20px auto;
+    transition: .2s;
+}
+
+
+.card:hover{
+    box-shadow: inset 5px 5px 10px rgba(0,0,0,.3),
+                inset -4px -4px 10px white;
+    transition: .2s;
+
+}
+
+/***contact***/
+
+
+#contact img{
+    height:100%;
+
+}
+
+#contact h1{
+    font-weight: 700;
+}
+
+.box{
+    width:80% !important;
+    margin-top:10px;
+
+}
+
+form{
+    display: flex;
+    flex-direction:column;
+
+}
+
+#contact input{
+    margin:10px 0px;
+
+}
+
+#contact textarea{
+    margin:10px 0px;
+    
+}
+
+/***cart page***/
+
+.cart-page{
+    background:#ddd015;
+    min-height:100vh;
+}
+
+.cart-page h1{
+    font-weight:800;
+    color:rgb(177, 28, 28);
+}
+
+/***cart and auth pages***/
+
+.cart-page, .auth-page{
+    background:#ddd015;
+    min-height:100vh;
+}
+
+.cart-page h1, .auth-page h1{
+    font-weight:800;
+    color:rgb(177, 28, 28);
+}
+
+/***responsive***/
+
+#contact img{
+    object-fit: cover;
+}
+
+/* Tablet and mobile (navbar collapse aagura size) */
+@media (max-width: 991.98px){
+    #navbar{
+        padding: .5rem 1.5rem;
+    }
+
+    #navbarSupportedContent .navbar-nav{
+        margin-top: .5rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767.98px){
+    #navbar{
+        padding: .5rem 1rem;
+    }
+
+    .navbar .navbar-brand{
+        font-size: 18px;
+    }
+
+    #home .input-group{
+        width: 85%;
+    }
+
+    #About h1,
+    #Our-Dishes h1{
+        font-size: 32px;
+    }
+
+    .box{
+        width: 95% !important;
+    }
+
+    #contact img{
+        height: auto;
+    }
+}
+
+/***footer***/
+
+.site-footer{
+    background: rgb(177, 28, 28);
+    color: white;
+    padding: 1.5rem 1rem;
+}
+
+.site-footer p:first-child{
+    color: rgb(230, 188, 5);
+    font-weight: 800;
+}
